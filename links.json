@@ -1,0 +1,5 @@
+[
+  { "label": "GitHub",   "url": "https://github.com/anotherdoesnm", "icon": "github" },
+  { "label": "Codeberg", "url": "https://codeberg.org/doesnm",      "icon": "" },
+  { "label": "Matrix",   "url": "https://matrix.to/#/@doesnm:matrix.org", "icon": "" }
+]

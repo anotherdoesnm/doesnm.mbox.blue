@@ -1,0 +1,17 @@
+/* Only styles the generated page actually uses are kept: the build drops
+   comments and collapses whitespace, and never emits rules for absent parts. */
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:48px 16px;display:flex;flex-direction:column;align-items:center;
+     background:var(--bg);color:var(--fg);font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+h1{font-size:20px;font-weight:600;margin:0 0 4px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:28px}
+.links{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px}
+a.link{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:10px;
+       background:var(--card);border:1px solid var(--border);color:var(--fg);text-decoration:none;
+       font-weight:500;transition:transform .12s ease,background .12s ease}
+a.link:hover{transform:translateY(-1px);filter:brightness(1.25)}
+a.link svg{width:20px;height:20px;fill:currentColor;flex:none}
+a.link .badge{width:20px;height:20px;border-radius:50%;background:var(--border);color:var(--muted);
+              font-size:11px;line-height:20px;text-align:center;flex:none;text-transform:uppercase}
+footer{margin-top:32px;color:var(--muted);font-size:12px}

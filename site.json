@@ -1,0 +1,12 @@
+{
+  "title": "doesnm",
+  "subtitle": "links",
+  "footer": "собрано SSG из конфигов этого репозитория",
+  "theme": {
+    "bg": "#0d0d0f",
+    "fg": "#f2f2f2",
+    "card": "#1a1a1d",
+    "border": "#26262a",
+    "muted": "#9a9a9a"
+  }
+}

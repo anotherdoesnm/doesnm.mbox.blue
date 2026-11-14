@@ -1,0 +1,74 @@
+// LittleLink-style SSG: configs in, one self-contained HTML out.
+//
+// Tree-shaking here is literal: only icons named in links.json are read from
+// assets/icons and inlined as SVG, everything else never touches the output.
+// CSS is inlined and minified (comments and redundant whitespace dropped), so
+// the page ships as a single file with no requests of its own.
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const read = (p) => readFileSync(join(root, p), "utf8");
+const site = JSON.parse(read("site.json"));
+const links = JSON.parse(read("links.json"));
+
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+function minifyCss(css) {
+  return css
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*([{}:;,>])\s*/g, "$1")
+    .replace(/;}/g, "}")
+    .trim();
+}
+
+function icon(name) {
+  if (!name) return "";
+  const file = join(root, "assets", "icons", `${name}.svg`);
+  if (!existsSync(file)) {
+    console.warn(`icon "${name}" missing — falling back to a letter badge`);
+    return "";
+  }
+  return readFileSync(file, "utf8")
+    .replace(/<\?xml[^>]*\?>/g, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function renderLink({ label, url, icon: iconName }) {
+  const svg = icon(iconName);
+  const mark = svg || `<span class="badge">${esc(label.slice(0, 1))}</span>`;
+  const safeUrl = /^(https?:|mailto:|matrix:)/i.test(url) ? url : "#";
+  return `    <a class="link" href="${esc(safeUrl)}" rel="me noopener">${mark}<span>${esc(label)}</span></a>`;
+}
+
+const themeVars = Object.entries(site.theme ?? {})
+  .map(([k, v]) => `--${k}:${v}`)
+  .join(";");
+
+const html = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(site.title)} — ${esc(site.subtitle ?? "links")}</title>
+<style>:root{${themeVars}}${minifyCss(read("assets/style.css"))}</style>
+</head>
+<body>
+  <h1>${esc(site.title)}</h1>
+  <div class="sub">${esc(site.subtitle ?? "")}</div>
+  <div class="links">
+${links.map(renderLink).join("\n")}
+  </div>
+  <footer>${esc(site.footer ?? "")}</footer>
+</body>
+</html>
+`;
+
+mkdirSync(join(root, "dist"), { recursive: true });
+writeFileSync(join(root, "dist", "index.html"), html);
+const used = links.filter((l) => l.icon && existsSync(join(root, "assets", "icons", `${l.icon}.svg`))).length;
+console.log(`built dist/index.html — ${html.length} bytes, ${links.length} links, ${used} inlined icons`);
