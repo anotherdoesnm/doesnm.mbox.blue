@@ -11,7 +11,13 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => readFileSync(join(root, p), "utf8");
 const site = JSON.parse(read("site.json"));
-const links = JSON.parse(read("links.json"));
+const allLinks = JSON.parse(read("links.json"));
+// Entries without a URL are placeholders for links not yet remembered; they
+// are reported and skipped, so the page never ships dead buttons.
+const links = allLinks.filter((l) => l.url && l.url.trim());
+for (const l of allLinks.filter((l) => !l.url || !l.url.trim())) {
+  console.warn(`skipping "${l.label}" — no url yet`);
+}
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -63,7 +69,7 @@ const html = `<!DOCTYPE html>
   <div class="links">
 ${links.map(renderLink).join("\n")}
   </div>
-  <footer>${esc(site.footer ?? "")}</footer>
+  <footer>${esc(site.footer ?? "")}${site.footerUrl ? ` · <a href="${esc(site.footerUrl)}">репозиторий</a>` : ""}</footer>
 </body>
 </html>
 `;

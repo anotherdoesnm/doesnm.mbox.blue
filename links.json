@@ -1,5 +1,14 @@
 [
-  { "label": "GitHub",   "url": "https://github.com/anotherdoesnm", "icon": "github" },
-  { "label": "Codeberg", "url": "https://codeberg.org/doesnm",      "icon": "" },
-  { "label": "Matrix",   "url": "https://matrix.to/#/@doesnm:matrix.org", "icon": "" }
+  { "label": "GitHub",     "url": "https://github.com/anotherdoesnm",        "icon": "github" },
+  { "label": "Codeberg",   "url": "https://codeberg.org/doesnm",             "icon": "" },
+  { "label": "Matrix",     "url": "https://matrix.to/#/@doesnm:matrix.org",  "icon": "" },
+  { "label": "Mastodon",   "url": "",  "icon": "" },
+  { "label": "Itch.io",    "url": "",  "icon": "" },
+  { "label": "ArcaneChat", "url": "",  "icon": "" },
+  { "label": "IRC",        "url": "",  "icon": "" },
+  { "label": "Oldcord",    "url": "",  "icon": "" },
+  { "label": "WhatsApp",   "url": "",  "icon": "" },
+  { "label": "Ko-fi",      "url": "",  "icon": "" },
+  { "label": "Политика конфиденциальности", "url": "", "icon": "" },
+  { "label": "Почта",      "url": "mailto:doesnm@doesnmlab.xyz",             "icon": "mail" }
 ]
