@@ -86,12 +86,14 @@ const html = `<!DOCTYPE html>
 <style>:root{${themeVars}}${minifyCss(read("assets/style.css"))}</style>
 </head>
 <body>
+<div class="container"><main>
 ${avatarTag(site)}  <h1>${esc(site.title)}</h1>
-  <div class="sub">${esc(site.subtitle ?? "")}</div>
-  <div class="links">
+  <p class="bio">${esc(site.subtitle ?? "")}</p>
+  <nav class="button-stack" aria-label="links">
 ${links.map(renderLink).join("\n")}
-  </div>
-  <footer>${esc(site.footer ?? "")}${site.footerUrl ? ` · <a href="${esc(site.footerUrl)}">репозиторий</a>` : ""}</footer>
+  </nav>
+  <footer>${esc(site.footer ?? "")}${site.footerUrl ? ` · <a href="${esc(site.footerUrl)}" rel="noopener">репозиторий</a>` : ""}</footer>
+</main></div>
 </body>
 </html>
 `;
