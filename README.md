@@ -20,6 +20,13 @@ Tree-shaking буквальный: сборщик читает `assets/icons/<ic
 
 Сейчас вывод — **2.5 КБ** на 3 ссылки, одна иконка инлайн.
 
+## Заметка про ActivityPub-профиль
+
+`https://ap-bridge.doesnmlab.xyz/actor/doesnm` (matrix-appservice-activitypub)
+отдаёт **JSON-LD** по умолчанию и **HTML-профиль** при `Accept: text/html`.
+Браузеры шлют именно HTML, так что ссылка на визитке рабочая; при проверке
+через `curl` без заголовка кажется, что страницы нет — не пугаться.
+
 ## Деплой
 
 Workflow `.github/workflows/build.yml` собирает и публикует на **GitHub Pages**
