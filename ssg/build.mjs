@@ -48,23 +48,28 @@ function iconSvg(name) {
     .replace(/<\/svg>$/, "</symbol>");
 }
 
-function brandVars(hex) {
-  const h = hex.replace("#", "");
-  const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255)
-    .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  const light = lum > 0.45;
-  const fg = light ? "#000000" : "#ffffff";
-  return `--button-background:${hex};--button-text:${fg};--button-border:1px solid ${fg}`;
-}
+// Brand rules come from the vendored LittleLink stylesheets: for every brand
+// used by links.json we lift exactly its .button-<brand> rule into the page and
+// drop the other 600-odd.
+const brandSources = ["assets/brands/main.css", "assets/brands/extended.css", "assets/brands/local.css"]
+  .map((p) => [p, read(p)]);
+const usedBrands = [...new Set(links.map((l) => l.brand).filter(Boolean))];
+const missingBrands = [];
+const brandCss = usedBrands.map((brand) => {
+  for (const [path, css] of brandSources) {
+    const m = css.match(new RegExp(`\\.button-${brand}\\s*\\{[^}]*\\}`, "m"));
+    if (m) return m[0];
+  }
+  missingBrands.push(brand);
+  return "";
+}).filter(Boolean).join("\n");
 
-function renderLink({ label, url, icon: iconName, color }) {
+function renderLink({ label, url, icon: iconName, brand }) {
   const mark = iconName && existsSync(join(root, "assets", "icons", `${iconName}.svg`))
     ? `<svg class="icon" aria-hidden="true"><use href="#i-${iconName}"/></svg>`
     : `<span class="badge">${esc(label.slice(0, 1))}</span>`;
   const safeUrl = /^(https?:|mailto:|matrix:)/i.test(url) ? url : "#";
-  const style = color ? ` style="${brandVars(color)}"` : "";
-  return `    <a class="button" href="${esc(safeUrl)}" rel="me noopener" target="_blank"${style}>${mark}${esc(label)}</a>`;
+  return `    <a class="button${brand ? ` button-${esc(brand)}` : ""}" href="${esc(safeUrl)}" rel="me noopener" target="_blank">${mark}${esc(label)}</a>`;
 }
 
 // The avatar is inlined as a data URI so the page stays a single file with no
@@ -92,7 +97,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(site.title)} — ${esc(site.subtitle ?? "links")}</title>
-<style>:root{${themeVars}}${minifyCss(read("assets/style.css"))}</style>
+<style>:root{${themeVars}}${minifyCss(read("assets/style.css"))}${minifyCss(brandCss)}</style>
 </head>
 <body>
 ${iconDefs}
@@ -111,4 +116,5 @@ ${links.map(renderLink).join("\n")}
 mkdirSync(join(root, "dist"), { recursive: true });
 writeFileSync(join(root, "dist", "index.html"), html);
 const used = links.filter((l) => l.icon && existsSync(join(root, "assets", "icons", `${l.icon}.svg`))).length;
+if (missingBrands.length) console.warn(`no upstream rule for: ${missingBrands.join(", ")}`);
 console.log(`built dist/index.html — ${html.length} bytes, ${links.length} links, ${used} inlined icons`);

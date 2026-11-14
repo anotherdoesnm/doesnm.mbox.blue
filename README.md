@@ -27,6 +27,19 @@ Tree-shaking буквальный: сборщик читает `assets/icons/<ic
 Браузеры шлют именно HTML, так что ссылка на визитке рабочая; при проверке
 через `curl` без заголовка кажется, что страницы нет — не пугаться.
 
+## Кнопки — из апстрима, не свои
+
+`assets/brands/main.css` и `assets/brands/extended.css` — дословные копии
+`sethcottle/littlelink · css/brands.css` и
+`sethcottle/littlelink-extended · css/brands-extended.css` (сняты 2026-11-14).
+Сборка вытаскивает из них **только** `.button-<brand>` для брендов, названных в
+`links.json`: сейчас это 6 правил из ~600.
+
+Своих правил ровно два, в `assets/brands/local.css`, потому что в апстриме их нет:
+
+- `.button-arcanechat` — ArcaneChat отсутствует в обоих наборах;
+- `.button-email` — нейтральная кнопка для `mailto:`.
+
 ## Деплой
 
 Workflow `.github/workflows/build.yml` собирает и публикует на **GitHub Pages**

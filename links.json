@@ -1,68 +1,68 @@
 [
   {
-    "label": "GitHub",
-    "url": "https://github.com/anotherdoesnm",
-    "icon": "github",
-    "color": "#24292f"
-  },
-  {
-    "label": "Codeberg",
-    "url": "https://codeberg.org/doesnm",
-    "icon": "codeberg",
-    "color": "#2185d0"
-  },
-  {
     "label": "Matrix",
     "url": "https://matrix.to/#/@doesnm:doesnmlab.xyz",
-    "icon": "matrix",
-    "color": "#0dbd8b"
+    "brand": "matrix",
+    "icon": "matrix"
   },
   {
     "label": "Matrix (kotik.tech)",
     "url": "https://matrix.to/#/@doesnm:kotik.tech",
-    "icon": "matrix",
-    "color": "#0dbd8b"
-  },
-  {
-    "label": "Mastodon",
-    "url": "https://mastodon.social/@doesnm",
-    "icon": "mastodon",
-    "color": "#6364ff"
-  },
-  {
-    "label": "Mastodon (har.mony.lol)",
-    "url": "https://har.mony.lol/@anotherdoesnm",
-    "icon": "mastodon",
-    "color": "#6364ff"
-  },
-  {
-    "label": "Mastodon (ap-bridge)",
-    "url": "https://ap-bridge.doesnmlab.xyz/actor/doesnm",
-    "icon": "mastodon",
-    "color": "#6364ff"
+    "brand": "matrix",
+    "icon": "matrix"
   },
   {
     "label": "ArcaneChat",
     "url": "https://deltachat.id/doesnm",
-    "icon": "arcanechat",
-    "color": "#7b00c8"
+    "brand": "arcanechat",
+    "icon": "arcanechat"
+  },
+  {
+    "label": "Mastodon",
+    "url": "https://mastodon.social/@doesnm",
+    "brand": "mastodon",
+    "icon": "mastodon"
+  },
+  {
+    "label": "Mastodon (ap-bridge)",
+    "url": "https://ap-bridge.doesnmlab.xyz/actor/doesnm",
+    "brand": "mastodon",
+    "icon": "mastodon"
+  },
+  {
+    "label": "Mastodon (har.mony.lol)",
+    "url": "https://har.mony.lol/@anotherdoesnm",
+    "brand": "mastodon",
+    "icon": "mastodon"
+  },
+  {
+    "label": "GitHub",
+    "url": "https://github.com/anotherdoesnm",
+    "brand": "github",
+    "icon": "github"
+  },
+  {
+    "label": "Codeberg",
+    "url": "https://codeberg.org/doesnm",
+    "brand": "codeberg",
+    "icon": "codeberg"
   },
   {
     "label": "Itch.io",
     "url": "https://doesnm.itch.io",
-    "icon": "itchio",
-    "color": "#fa5c5c"
+    "brand": "itchio",
+    "icon": "itchio"
   },
   {
     "label": "Ko-fi",
     "url": "https://ko-fi.com/doesnm",
-    "icon": "ko-fi",
-    "color": "#ff5e5b"
+    "brand": "ko-fi",
+    "icon": "ko-fi"
   },
   {
     "label": "Почта",
     "url": "mailto:doesnm@doesnmlab.xyz",
-    "icon": "generic-email",
-    "color": "#4a4a4f"
+    "brand": "email",
+    "icon": "generic-email"
   }
 ]
