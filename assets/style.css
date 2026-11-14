@@ -1,18 +1,20 @@
-/* Only styles the generated page actually uses are kept: the build drops
-   comments and collapses whitespace, and never emits rules for absent parts. */
-:root{color-scheme:dark}
+/* Trimmed LittleLink layout: same geometry as the upstream theme (8rem avatar,
+   18.75rem buttons, 0.5rem radius), but only the rules this page uses. */
+:root{color-scheme:light}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:48px 16px;display:flex;flex-direction:column;align-items:center;
-     background:var(--bg);color:var(--fg);font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-.avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 0 18px;border:2px solid var(--border)}
-h1{font-size:20px;font-weight:600;margin:0 0 4px}
-.sub{color:var(--muted);font-size:14px;margin-bottom:28px}
-.links{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px}
-a.link{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:10px;
-       background:var(--brand,var(--card));border:1px solid transparent;color:var(--fg);text-decoration:none;
-       font-weight:500;transition:transform .12s ease,background .12s ease}
-a.link:hover{transform:translateY(-1px);filter:brightness(1.15)}
-a.link svg{width:20px;height:20px;fill:currentColor;flex:none}
-a.link .badge{width:20px;height:20px;border-radius:50%;background:var(--border);color:var(--muted);
-              font-size:11px;line-height:20px;text-align:center;flex:none;text-transform:uppercase}
-footer{margin-top:32px;color:var(--muted);font-size:12px}
+body{margin:0;background:#fff;color:#1a1a1a;font-family:"Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:400;line-height:1.6}
+.container{position:relative;width:100%;max-width:37.5rem;text-align:center;margin:0 auto;padding:3rem 1.5rem 0}
+.avatar{width:8rem;height:8rem;border-radius:50%;object-fit:cover;display:block;margin:0 auto 2rem;background:#f2f2f2}
+h1{margin:0 0 1rem;font-size:2.5rem;font-weight:800;line-height:1.1;letter-spacing:-.02em;overflow-wrap:break-word}
+.bio{margin:0 0 2rem;font-size:1.125rem;color:#555}
+.button-stack{display:flex;flex-direction:column;align-items:center}
+.button{display:inline-flex;align-items:center;justify-content:center;width:18.75rem;min-height:3rem;padding:.75rem 1rem;
+        font-size:1.125rem;font-weight:700;line-height:1.3;text-align:center;text-decoration:none;
+        background:var(--button-background,#000);color:var(--button-text,#fff);border:var(--button-border,1px solid #fff);
+        border-radius:.5rem;margin-bottom:1rem;white-space:normal;transition:filter .12s ease}
+.button:hover{filter:brightness(1.15)}
+.icon{width:1.25rem;height:1.25rem;margin-right:.5rem;flex-shrink:0;fill:currentColor}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:1.25rem;height:1.25rem;margin-right:.5rem;
+       border-radius:50%;border:1px solid currentColor;font-size:.7rem;flex-shrink:0;text-transform:uppercase}
+footer{margin:4rem 0;font-size:.875rem;color:#777}
+footer a{color:#555}

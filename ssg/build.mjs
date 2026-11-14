@@ -41,15 +41,26 @@ function icon(name) {
     .replace(/<\?xml[^>]*\?>/g, "")
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/\s+/g, " ")
+    .replace("<svg ", '<svg class="icon" ')
     .trim();
+}
+
+function brandVars(hex) {
+  const h = hex.replace("#", "");
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255)
+    .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  const light = lum > 0.45;
+  const fg = light ? "#000000" : "#ffffff";
+  return `--button-background:${hex};--button-text:${fg};--button-border:1px solid ${fg}`;
 }
 
 function renderLink({ label, url, icon: iconName, color }) {
   const svg = icon(iconName);
   const mark = svg || `<span class="badge">${esc(label.slice(0, 1))}</span>`;
   const safeUrl = /^(https?:|mailto:|matrix:)/i.test(url) ? url : "#";
-  const style = color ? ` style="--brand:${esc(color)}"` : "";
-  return `    <a class="link" href="${esc(safeUrl)}" rel="me noopener"${style}>${mark}<span>${esc(label)}</span></a>`;
+  const style = color ? ` style="${brandVars(color)}"` : "";
+  return `    <a class="button" href="${esc(safeUrl)}" rel="me noopener" target="_blank"${style}>${mark}${esc(label)}</a>`;
 }
 
 // The avatar is inlined as a data URI so the page stays a single file with no
