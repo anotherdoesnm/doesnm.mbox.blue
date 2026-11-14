@@ -1,6 +1,6 @@
 {
   "title": "doesnm",
-  "subtitle": "links",
+  "subtitle": "@doesnm@mastodon.social",
   "footer": "Форк LittleLink, собрано из конфигов. ещё почта: doesnm@project26.cc, doesnm@h4ks.com",
   "theme": {
     "bg": "#0d0d0f",
@@ -9,5 +9,6 @@
     "border": "#26262a",
     "muted": "#9a9a9a"
   },
-  "footerUrl": "https://github.com/anotherdoesnm/doesnm.mbox.blue"
+  "footerUrl": "https://github.com/anotherdoesnm/doesnm.mbox.blue",
+  "avatar": "assets/avatar.png"
 }

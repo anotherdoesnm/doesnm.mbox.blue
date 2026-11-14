@@ -44,11 +44,22 @@ function icon(name) {
     .trim();
 }
 
-function renderLink({ label, url, icon: iconName }) {
+function renderLink({ label, url, icon: iconName, color }) {
   const svg = icon(iconName);
   const mark = svg || `<span class="badge">${esc(label.slice(0, 1))}</span>`;
   const safeUrl = /^(https?:|mailto:|matrix:)/i.test(url) ? url : "#";
-  return `    <a class="link" href="${esc(safeUrl)}" rel="me noopener">${mark}<span>${esc(label)}</span></a>`;
+  const style = color ? ` style="--brand:${esc(color)}"` : "";
+  return `    <a class="link" href="${esc(safeUrl)}" rel="me noopener"${style}>${mark}<span>${esc(label)}</span></a>`;
+}
+
+// The avatar is inlined as a data URI so the page stays a single file with no
+// extra requests; it is read only when site.avatar is set.
+function avatarTag(site) {
+  if (!site.avatar) return "";
+  const file = join(root, site.avatar);
+  if (!existsSync(file)) { console.warn(`avatar ${site.avatar} missing`); return ""; }
+  const b64 = readFileSync(file).toString("base64");
+  return `  <img class="avatar" src="data:image/png;base64,${b64}" alt="${esc(site.title)}" width="96" height="96">\n`;
 }
 
 const themeVars = Object.entries(site.theme ?? {})
@@ -64,7 +75,7 @@ const html = `<!DOCTYPE html>
 <style>:root{${themeVars}}${minifyCss(read("assets/style.css"))}</style>
 </head>
 <body>
-  <h1>${esc(site.title)}</h1>
+${avatarTag(site)}  <h1>${esc(site.title)}</h1>
   <div class="sub">${esc(site.subtitle ?? "")}</div>
   <div class="links">
 ${links.map(renderLink).join("\n")}
