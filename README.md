@@ -1,63 +1,21 @@
-# doesnm.mbox.blue — LittleLink-подобный SSG
+# doesnm.mbox.blue
 
-Репозиторий содержит **только конфиги и сборщик**. Страница генерируется в один
-самодостаточный HTML: ни CSS-файлов, ни картинок отдельными запросами.
+Страница-визитка на трёх репозиториях:
 
-## Как это работает
+| репозиторий | что делает |
+|---|---|
+| этот | конфиги (`site.json`, `links.json`), иконки, аватар — и всё |
+| [action-littlelink](https://github.com/anotherdoesnm/action-littlelink) | сборщик: тянет апстримные `brands.css` по закреплённому коммиту и рендерит один HTML |
+| [littlelink-template](https://github.com/anotherdoesnm/littlelink-template) | шаблон для новых сайтов; из него сделан этот репозиторий |
 
-```
-site.json      заголовок, подзаголовок, футер, цвета темы
-links.json     [{ label, url, icon }] — порядок = порядок кнопок
-assets/style.css   единственный стилевой файл, минифицируется при сборке
-assets/icons/*.svg иконки; попадают в вывод ТОЛЬКО те, что названы в links.json
-ssg/build.mjs  сборщик, ноль зависимостей, node 20
-dist/index.html    результат (в git не коммитится)
-```
+Раньше сборщик и вендоренные CSS лежали здесь же — тогда каждый форк тащил свою
+копию, и они расходились. Теперь обновление стилей — это смена пина в action, без
+правок в этом репозитории.
 
-Tree-shaking буквальный: сборщик читает `assets/icons/<icon>.svg` лишь для
-иконок, упомянутых в конфиге; остальные в вывод не попадают вовсе. Если у ссылки
-иконки нет или файла не существует — рисуется буквенный бейдж, сборка не падает.
+## Правки
 
-Сейчас вывод — **2.5 КБ** на 3 ссылки, одна иконка инлайн.
+- содержимое — `site.json`, `links.json`;
+- картинки — `assets/avatar.png`, `assets/icons/<name>.svg`;
+- своя кнопка без апстримного стиля: `{ "brand": "myservice", "icon": "myservice", "color": "#123456" }`.
 
-## Заметка про ActivityPub-профиль
-
-`https://ap-bridge.doesnmlab.xyz/actor/doesnm` (matrix-appservice-activitypub)
-отдаёт **JSON-LD** по умолчанию и **HTML-профиль** при `Accept: text/html`.
-Браузеры шлют именно HTML, так что ссылка на визитке рабочая; при проверке
-через `curl` без заголовка кажется, что страницы нет — не пугаться.
-
-## Кнопки — из апстрима, не свои
-
-`assets/brands/main.css` и `assets/brands/extended.css` — дословные копии
-`sethcottle/littlelink · css/brands.css` и
-`sethcottle/littlelink-extended · css/brands-extended.css` (сняты 2026-11-14).
-Сборка вытаскивает из них **только** `.button-<brand>` для брендов, названных в
-`links.json`: сейчас это 6 правил из ~600.
-
-Своих правил ровно два, в `assets/brands/local.css`, потому что в апстриме их нет:
-
-- `.button-arcanechat` — ArcaneChat отсутствует в обоих наборах;
-- `.button-email` — нейтральная кнопка для `mailto:`.
-
-## Деплой
-
-Workflow `.github/workflows/build.yml` собирает и публикует на **GitHub Pages**
-(нужен публичный репозиторий либо платный план для приватного).
-
-Альтернативы, если Pages не подходит:
-
-- **Codeberg Pages** — тот же `dist/` пушится в ветку `pages` репозитория на Codeberg;
-- **свой сервер** — `dist/index.html` кладётся в каталог nginx на nexus.
-
-## Редактор (следующий шаг)
-
-Статический редактор с «Sign in with GitHub». Варианты авторизации:
-
-1. **Device flow** — без бэкенда: приложение показывает код, пользователь вводит его
-   на github.com/login/device, токен остаётся в браузере. Требует OAuth App с
-   включённым Device Flow, но не требует сервера.
-2. **OAuth App + обмен code→token** — нужен client_secret, то есть маленькая функция
-   на своём хосте.
-
-Редактор правит `site.json`/`links.json` и коммитит через GitHub API.
+Пуш в `main` → GitHub Actions собирает → Pages публикует.

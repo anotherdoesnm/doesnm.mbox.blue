@@ -1,4 +1,0 @@
-/* Brands with no upstream rule. Kept apart on purpose: everything else comes
-   from the vendored LittleLink stylesheets. */
-.button-arcanechat{--button-text:#ffffff;--button-background:#7b00c8}
-.button-email{--button-text:#ffffff;--button-background:#000000;--button-border:1px solid #FFFFFF}
