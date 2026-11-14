@@ -1,14 +1,12 @@
 [
-  { "label": "GitHub",     "url": "https://github.com/anotherdoesnm",        "icon": "github" },
-  { "label": "Codeberg",   "url": "https://codeberg.org/doesnm",             "icon": "" },
-  { "label": "Matrix",     "url": "https://matrix.to/#/@doesnm:matrix.org",  "icon": "" },
-  { "label": "Mastodon",   "url": "",  "icon": "" },
-  { "label": "Itch.io",    "url": "",  "icon": "" },
-  { "label": "ArcaneChat", "url": "",  "icon": "" },
-  { "label": "IRC",        "url": "",  "icon": "" },
-  { "label": "Oldcord",    "url": "",  "icon": "" },
-  { "label": "WhatsApp",   "url": "",  "icon": "" },
-  { "label": "Ko-fi",      "url": "",  "icon": "" },
-  { "label": "Политика конфиденциальности", "url": "", "icon": "" },
-  { "label": "Почта",      "url": "mailto:doesnm@doesnmlab.xyz",             "icon": "mail" }
+  { "label": "GitHub",                  "url": "https://github.com/anotherdoesnm",            "icon": "github" },
+  { "label": "Codeberg",                "url": "https://codeberg.org/doesnm",                 "icon": "" },
+  { "label": "Matrix",                  "url": "https://matrix.to/#/@doesnm:doesnmlab.xyz",   "icon": "" },
+  { "label": "Matrix (kotik.tech)",     "url": "https://matrix.to/#/@doesnm:kotik.tech",      "icon": "" },
+  { "label": "Mastodon",                "url": "https://mastodon.social/@doesnm",             "icon": "" },
+  { "label": "Mastodon (har.mony.lol)", "url": "https://har.mony.lol/@anotherdoesnm",         "icon": "" },
+  { "label": "ArcaneChat",              "url": "https://deltachat.id/doesnm",                 "icon": "" },
+  { "label": "Itch.io",                 "url": "https://doesnm.itch.io",                      "icon": "" },
+  { "label": "Ko-fi",                   "url": "https://ko-fi.com/doesnm",                    "icon": "" },
+  { "label": "Почта",                   "url": "mailto:doesnm@doesnmlab.xyz",                 "icon": "mail" }
 ]
