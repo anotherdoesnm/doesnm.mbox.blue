@@ -30,19 +30,22 @@ function minifyCss(css) {
     .trim();
 }
 
-function icon(name) {
-  if (!name) return "";
+function iconSvg(name) {
   const file = join(root, "assets", "icons", `${name}.svg`);
   if (!existsSync(file)) {
     console.warn(`icon "${name}" missing — falling back to a letter badge`);
-    return "";
+    return null;
   }
   return readFileSync(file, "utf8")
     .replace(/<\?xml[^>]*\?>/g, "")
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/\s+/g, " ")
-    .replace("<svg ", '<svg class="icon" ')
-    .trim();
+    .trim()
+    .replace(/^<svg([^>]*)>/, (_, attrs) => {
+      const inner = attrs.replace(/\s(width|height)="[^"]*"/g, "");
+      return `<symbol id="i-${name}"${inner}>`;
+    })
+    .replace(/<\/svg>$/, "</symbol>");
 }
 
 function brandVars(hex) {
@@ -56,8 +59,9 @@ function brandVars(hex) {
 }
 
 function renderLink({ label, url, icon: iconName, color }) {
-  const svg = icon(iconName);
-  const mark = svg || `<span class="badge">${esc(label.slice(0, 1))}</span>`;
+  const mark = iconName && existsSync(join(root, "assets", "icons", `${iconName}.svg`))
+    ? `<svg class="icon" aria-hidden="true"><use href="#i-${iconName}"/></svg>`
+    : `<span class="badge">${esc(label.slice(0, 1))}</span>`;
   const safeUrl = /^(https?:|mailto:|matrix:)/i.test(url) ? url : "#";
   const style = color ? ` style="${brandVars(color)}"` : "";
   return `    <a class="button" href="${esc(safeUrl)}" rel="me noopener" target="_blank"${style}>${mark}${esc(label)}</a>`;
@@ -73,6 +77,11 @@ function avatarTag(site) {
   return `  <img class="avatar" src="data:image/png;base64,${b64}" alt="${esc(site.title)}" width="96" height="96">\n`;
 }
 
+const usedIcons = [...new Set(links.map((l) => l.icon).filter((n) => n && existsSync(join(root, "assets", "icons", `${n}.svg`))))];
+const iconDefs = usedIcons.length
+  ? `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">${usedIcons.map(iconSvg).join("")}</svg>\n`
+  : "";
+
 const themeVars = Object.entries(site.theme ?? {})
   .map(([k, v]) => `--${k}:${v}`)
   .join(";");
@@ -86,6 +95,7 @@ const html = `<!DOCTYPE html>
 <style>:root{${themeVars}}${minifyCss(read("assets/style.css"))}</style>
 </head>
 <body>
+${iconDefs}
 <div class="container"><main>
 ${avatarTag(site)}  <h1>${esc(site.title)}</h1>
   <p class="bio">${esc(site.subtitle ?? "")}</p>

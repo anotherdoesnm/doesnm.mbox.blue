@@ -8,61 +8,61 @@
   {
     "label": "Codeberg",
     "url": "https://codeberg.org/doesnm",
-    "icon": "",
+    "icon": "codeberg",
     "color": "#2185d0"
   },
   {
     "label": "Matrix",
     "url": "https://matrix.to/#/@doesnm:doesnmlab.xyz",
-    "icon": "",
+    "icon": "matrix",
     "color": "#0dbd8b"
   },
   {
     "label": "Matrix (kotik.tech)",
     "url": "https://matrix.to/#/@doesnm:kotik.tech",
-    "icon": "",
+    "icon": "matrix",
     "color": "#0dbd8b"
   },
   {
     "label": "Mastodon",
     "url": "https://mastodon.social/@doesnm",
-    "icon": "",
+    "icon": "mastodon",
     "color": "#6364ff"
   },
   {
     "label": "Mastodon (har.mony.lol)",
     "url": "https://har.mony.lol/@anotherdoesnm",
-    "icon": "",
+    "icon": "mastodon",
     "color": "#6364ff"
   },
   {
     "label": "Mastodon (ap-bridge)",
     "url": "https://ap-bridge.doesnmlab.xyz/actor/doesnm",
-    "icon": "",
+    "icon": "mastodon",
     "color": "#6364ff"
   },
   {
     "label": "ArcaneChat",
     "url": "https://deltachat.id/doesnm",
-    "icon": "",
+    "icon": "chat",
     "color": "#1e88e5"
   },
   {
     "label": "Itch.io",
     "url": "https://doesnm.itch.io",
-    "icon": "",
+    "icon": "itchio",
     "color": "#fa5c5c"
   },
   {
     "label": "Ko-fi",
     "url": "https://ko-fi.com/doesnm",
-    "icon": "",
+    "icon": "ko-fi",
     "color": "#ff5e5b"
   },
   {
     "label": "Почта",
     "url": "mailto:doesnm@doesnmlab.xyz",
-    "icon": "mail",
+    "icon": "generic-email",
     "color": "#4a4a4f"
   }
 ]
