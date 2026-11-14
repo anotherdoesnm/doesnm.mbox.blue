@@ -1,21 +1,21 @@
 # doesnm.mbox.blue
 
-Страница-визитка на трёх репозиториях:
+My link page, spread over three repositories:
 
-| репозиторий | что делает |
+| repository | role |
 |---|---|
-| этот | конфиги (`site.json`, `links.json`), иконки, аватар — и всё |
-| [action-littlelink](https://github.com/anotherdoesnm/action-littlelink) | сборщик: тянет апстримные `brands.css` по закреплённому коммиту и рендерит один HTML |
-| [littlelink-template](https://github.com/anotherdoesnm/littlelink-template) | шаблон для новых сайтов; из него сделан этот репозиторий |
+| this one | `site.json`, `links.json`, icons, avatar — nothing else |
+| [action-littlelink](https://github.com/anotherdoesnm/action-littlelink) | the renderer: fetches upstream `brands.css` at a pinned commit and emits one HTML file |
+| [littlelink-template](https://github.com/anotherdoesnm/littlelink-template) | the template this repository was created from |
 
-Раньше сборщик и вендоренные CSS лежали здесь же — тогда каждый форк тащил свою
-копию, и они расходились. Теперь обновление стилей — это смена пина в action, без
-правок в этом репозитории.
+The renderer and the vendored stylesheets used to live here, which meant every fork
+carried its own copy and they drifted. Now updating the styles is a bump in the
+action, with no change in this repository.
 
-## Правки
+## Editing
 
-- содержимое — `site.json`, `links.json`;
-- картинки — `assets/avatar.png`, `assets/icons/<name>.svg`;
-- своя кнопка без апстримного стиля: `{ "brand": "myservice", "icon": "myservice", "color": "#123456" }`.
+- content — `site.json`, `links.json`;
+- images — `assets/avatar.png`, `assets/icons/<name>.svg`;
+- a button with no upstream style — `{ "brand": "myservice", "icon": "myservice", "color": "#123456" }`.
 
-Пуш в `main` → GitHub Actions собирает → Pages публикует.
+Push to `main`, GitHub Actions builds, Pages publishes.
